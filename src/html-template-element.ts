@@ -16,14 +16,11 @@ const templateDefinitionCache: Map<HTMLTemplateElement, TemplateDefinition> = ne
 
 declare global {
   interface HTMLTemplateElement {
-    createInstance(
-        processor: TemplateProcessor,
-        state?: any,
-        overrideDiagramCache?: boolean): TemplateInstance
   }
 }
 
-HTMLTemplateElement.prototype.createInstance = function(
+const createInstance = function(
+    template: HTMLTemplateElement,
     processor: TemplateProcessor,
     state?: any,
     overrideDefinitionCache = false): TemplateInstance {
@@ -31,11 +28,13 @@ HTMLTemplateElement.prototype.createInstance = function(
     throw new Error('The first argument of createInstance must be an implementation of TemplateProcessor');
   }
 
-  if (!templateDefinitionCache.has(this) || overrideDefinitionCache) {
-    templateDefinitionCache.set(this, new TemplateDefinition(this));
+  if (!templateDefinitionCache.has(template) || overrideDefinitionCache) {
+    templateDefinitionCache.set(template, new TemplateDefinition(template));
   }
 
-  const definition = templateDefinitionCache.get(this)!;
+  const definition = templateDefinitionCache.get(template)!;
 
   return new TemplateInstance(definition, processor, state);
 };
+
+export default createInstance;

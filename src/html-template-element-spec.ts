@@ -13,17 +13,13 @@ import { Fixturable } from
     '../../@polymer/ristretto/lib/mixins/fixturable.js';
 import '../../chai/chai.js';
 import { ExampleTemplateProcessor } from './example-template-processor.js';
-import './html-template-element.js';
+import createInstance from './html-template-element.js';
 
 const spec = new (Fixturable(Spec))();
 const { describe, it, fixture } = spec;
 const { expect } = chai;
 
 describe('HTMLTemplateElement', () => {
-  it('has a method createInstance', () => {
-    expect(document.createElement('template').createInstance).to.be.ok;
-  });
-
   describe('createInstance', () => {
     fixture(() => {
       const template = document.createElement('template');
@@ -36,7 +32,8 @@ describe('HTMLTemplateElement', () => {
         let threw = false;
 
         try {
-          template.createInstance();
+          let ci = createInstance as any;
+          ci(template, null);
         } catch (e) {
           threw = true;
         }
@@ -51,12 +48,12 @@ describe('HTMLTemplateElement', () => {
       });
 
       it('returns a DocumentFragment', ({ template, processor }: any) => {
-        const instance = template.createInstance(processor);
+        const instance = createInstance(template, processor);
         expect(instance).to.be.instanceof(DocumentFragment);
       });
 
       it('returns a TemplateInstance', ({ template, processor }: any) => {
-        const instance = template.createInstance(processor);
+        const instance = createInstance(template, processor);
         expect(instance).to.be.instanceof(DocumentFragment);
       });
 
@@ -66,8 +63,8 @@ describe('HTMLTemplateElement', () => {
         });
 
         it('puts the state in the DOM', ({ template, processor, state }: any) => {
-          const instance = template.createInstance(processor, state);
-          expect(instance.childNodes[0].innerText).to.be.equal(state.content);
+          const instance = createInstance(template, processor, state);
+          expect(instance.childNodes[0].textContent).to.be.equal(state.content);
         });
       });
     });

@@ -15,7 +15,7 @@
 export default {
   input: './lib/html-template-element.js',
   output: {
-    format: 'umd',
+    format: 'es',
     file: './template-instantiation.js',
     name: 'TemplateInstantiation'
   }
