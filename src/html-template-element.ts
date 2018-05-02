@@ -37,4 +37,14 @@ const createInstance = function(
   return new TemplateInstance(definition, processor, state);
 };
 
-export default createInstance;
+export {
+  TemplatePart,
+  NodeTemplatePart,
+  AttributeTemplatePart,
+  InnerTemplatePart
+} from './template-part.js';
+
+export {
+  createInstance as default,
+  TemplateProcessor
+};

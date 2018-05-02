@@ -1,5 +1,5 @@
 {
-  "name": "template-instantiation-ponyfill",
+  "name": "@matthewp/template-instantiation",
   "version": "1.0.0",
   "description": "A prollyfill for HTML template instantiation",
   "main": "template-instantiation.js",
