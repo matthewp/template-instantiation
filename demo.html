@@ -30,17 +30,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
 
   <script type="module">
-    import './lib/html-template-element.js';
+    import createInstance from './lib/html-template-element.js';
     import { ExampleTemplateProcessor } from './lib/example-template-processor.js';
 
     const template = document.querySelector('#test');
     const processor = new ExampleTemplateProcessor();
     const container = document.querySelector('#container');
-    const instance = template.createInstance(processor, {
+    const instance = createInstance(template, processor, {
       title: 'FOO',
       label: 'BAR',
       body: 'BAZ',
-      footer: 'QUX'
+      footer: 'QUX',
+      things: []
     });
 
     container.appendChild(instance);
@@ -50,7 +51,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         title: 'FIZ',
         label: 'BUZ',
         body: 'LUR',
-        footer: 'VIM'
+        footer: 'VIM',
+        things: ['one', 'two']
       });
     }, 2000);
   </script>

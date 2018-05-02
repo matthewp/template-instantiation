@@ -40,6 +40,7 @@ export class TemplateDefinition {
     const { template } = this;
     const content = template.content.cloneNode(true);
     const rules: TemplateRule[] = [];
+    const mutations = [];
 
     const walker = createTreeWalker(content);
     let nodeIndex = -1;
@@ -58,7 +59,7 @@ export class TemplateDefinition {
           const { parentNode } = node;
           const partNode = document.createTextNode('');
 
-          parentNode!.replaceChild(partNode, node);
+          mutations.push(() => parentNode!.replaceChild(partNode, node));
 
           rules.push(new InnerTemplateRule(nodeIndex, node));
         } else {
@@ -103,6 +104,11 @@ export class TemplateDefinition {
 
         node.nodeValue = strings[strings.length - 1];
       }
+    }
+
+    // Execute mutations
+    for(let fn of mutations) {
+      fn();
     }
 
     this.rules = rules;

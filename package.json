@@ -1,6 +1,6 @@
 {
-  "name": "template-instantiation-prollyfill",
-  "version": "0.0.4",
+  "name": "template-instantiation-ponyfill",
+  "version": "1.0.0",
   "description": "A prollyfill for HTML template instantiation",
   "main": "template-instantiation.js",
   "files": [
