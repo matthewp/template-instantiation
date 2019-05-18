@@ -65,7 +65,7 @@ export class AttributeTemplatePart extends TemplatePart {
 
     for (let i = 0; i < (strings.length - 1); ++i) {
       valueFragments.push(strings[i]);
-      valueFragments.push(value[i] || '');
+      valueFragments.push(value[i] != null ? value[i] : '');
     }
 
     const attributeValue = valueFragments.join('');
